@@ -4,7 +4,12 @@ const app = express()
 
 app.use(express.json())
 
+// app.get('/none', (request, response) => {
+//     response.send({})
+// })
+
 app.post('/events', async (request, response) => {
+    console.log('Recieved event', request.body.type)
     const { type, data } = request.body
 
     if (type === 'CommentCreated') {
