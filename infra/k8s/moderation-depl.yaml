@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-moderation-depl
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notes-moderation
+  template:
+    metadata:
+      labels:
+        app: notes-moderation
+    spec:
+      containers:
+        - name: notes-moderation 
+          image: joshuaombasa/notes-moderation
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notes-moderation-srv
+spec:
+  selector:
+    app: notes-moderation
+  ports:
+    - name: notes-moderation
+      port: 4003
+      targetPort: 4003
