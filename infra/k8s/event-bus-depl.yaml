@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-event-bus-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notes-event-bus 
+  template:
+    metadata:
+      labels:
+        app: notes-event-bus
+    spec:
+      containers:
+        - name: notes-event-bus 
+          image: joshuaombasa/notes-event-bus
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notes-event-bus-srv
+spec:
+  selector:
+    app: notes-event-bus
+  ports:
+    - name: notes-event-bus
+      port: 4005
+      targetPort: 4005
