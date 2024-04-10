@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-comments-depl
+spec:  
+  replica: 1
+  selector:
+    matchLabels: 
+      app: notes-comments
+  template:
+    metadata:
+      labels:
+        app: notes-comments
+    spec:
+      containers:
+        - name: notes-comments
+          image: joshuaombasa/notes-comments 
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notes-comments-srv
+spec:
+  selector:
+    app: notes-comments
+  ports:
+    - name: notes-comments
+      port: 4001 
+      targetPort: 4001
