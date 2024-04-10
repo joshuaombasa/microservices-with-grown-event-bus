@@ -1,0 +1,32 @@
+apiVersion: apps:v1
+kind: Deployment
+metadata:
+  name: notes-posts-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: notes-posts
+  template:
+    metadata:
+      labels:
+        app: notes-posts
+    spec:
+      containers:
+        - name: notes-posts
+          image: joshuaombasa/notes-posts 
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notes-posts-srv
+spec:
+  selector:
+    app: notes-posts
+  ports:
+    - name: notes-posts
+      port: 4000
+      targetPort: 4000
