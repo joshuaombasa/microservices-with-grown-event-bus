@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-query-depl 
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: notes-query
+  template:
+    metadata:
+      labels:
+        app: notes-query 
+    spec:
+      containers: 
+        - name: notes-query
+          image: joshuaombasa/notes-query
+
+
+--- 
+
+apiVersion: v1
+kind: Services
+metadata:
+  name: notes-query-srv
+spec:
+  selector:
+    app: notes-query
+  ports:
+    - name: notes-query
+      ports: 4002
+      targetPort: 4002
